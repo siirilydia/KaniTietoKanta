@@ -1,0 +1,301 @@
+﻿
+@{
+    ViewData["Title"] = "Sukupuu";
+}
+
+<h1 class="display-4">Sukupuu</h1>
+
+<form class="form-inline" method="get" action="@Url.Action("Sukupuu", "KaniDB")">
+    <div class="form-group mx-sm-3 mb-2">
+        <select class="form-control" name="kaniid" id="kaniid">
+            @if (ViewBag.Haku == false)
+            {
+                <option value="" selected disabled hidden>Valitse kani</option>
+            }
+            @foreach (var item in ViewBag.Kaikkikanit)
+            {
+                @if (ViewBag.Haku == true && item.KaniId == ViewBag.Haettu.KaniId)
+                {
+                    @if (item.Nimi == null)
+                    {
+                        <option value=@item.KaniId selected="selected">@item.Kutsumanimi</option>
+                    }
+                    else
+                    {
+                        <option value=@item.KaniId selected="selected">@item.Nimi "@item.Kutsumanimi"</option>
+                    }
+                }
+                else
+                {
+                    @if (item.Nimi == null)
+                    {
+                        <option value=@item.KaniId>@item.Kutsumanimi</option>
+                    }
+                    else
+                    {
+                        <option value=@item.KaniId>@item.Nimi "@item.Kutsumanimi"</option>
+                    }
+                }
+            }
+        </select>
+    </div>
+    <button type="submit">Hae sukupuu</button>
+</form>
+
+<div>
+    <hr />
+    @if (ViewBag.Haku == true)
+    {
+        <ul class="tree">
+            <li>
+                <span>
+                    @Html.ActionLink("Haettu kani", "Details", new { id = ViewBag.Haettu.KaniId })
+                    <br />
+                    @ViewBag.Haettu.Nimi
+                    <br />
+                    <i>@ViewBag.Haettu.Kutsumanimi</i>
+                    <br />
+                    @ViewBag.Haettu.Rotu
+                </span>
+                <ul>
+                    <li>
+                        <span>
+                            @if (ViewBag.E.KaniId != null)
+                            {
+                                @Html.ActionLink("emä", "Sukupuu", new { kaniid = ViewBag.E.KaniId })
+                            }
+                            else
+                            {
+                                <a>emä</a>
+                            }
+                            <br />
+                            @ViewBag.E.Vnimi
+                            <br />
+                            <i>@ViewBag.E.Knimi</i>
+                        </span>
+                        <ul>
+                            <li>
+                                <span>
+                                    @if (ViewBag.Ee.KaniId != null)
+                                    {
+                                        @Html.ActionLink("ee", "Sukupuu", new { kaniid = ViewBag.Ee.KaniId })
+                                    }
+                                    else
+                                    {
+                                        <a>ee</a>
+                                    }
+                                    <br />
+                                    @ViewBag.Ee.Vnimi
+                                    <br />
+                                    <i>@ViewBag.Ee.Knimi</i>
+                                </span>
+                            </li>
+                            <li>
+                                <span>
+                                    @if (ViewBag.Ei.KaniId != null)
+                                    {
+                                        @Html.ActionLink("ei", "Sukupuu", new { kaniid = ViewBag.Ei.KaniId })
+                                    }
+                                    else
+                                    {
+                                        <a> ei </a>
+                                    }
+                                    <br />
+                                    @ViewBag.Ei.Vnimi
+                                    <br />
+                                    <i>@ViewBag.Ei.Knimi</i>
+                                </span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span>
+                            @if (ViewBag.I.KaniId != null)
+                            {
+                                @Html.ActionLink("isä", "Sukupuu", new { kaniid = ViewBag.I.KaniId })
+                            }
+                            else
+                            {
+                                <a>isä</a>
+                            }
+                            <br />
+                            @ViewBag.I.Vnimi
+                            <br />
+                            <i>@ViewBag.I.Knimi</i>
+                            <br />
+                        </span>
+                        <ul>
+                            <li>
+                                <span>
+                                    @if (ViewBag.Ie.KaniId != null)
+                                    {
+                                        @Html.ActionLink("ie", "Sukupuu", new { kaniid = ViewBag.Ie.KaniId })
+                                    }
+                                    else
+                                    {
+                                        <a>ie</a>
+                                    }
+                                    <br />
+                                    @ViewBag.Ie.Vnimi
+                                    <br />
+                                    <i>@ViewBag.Ie.Knimi</i>
+                                    <br />
+                                </span>
+                            </li>
+                            <li>
+                                <span>
+                                    @if (ViewBag.Ii.KaniId != null)
+                                    {
+                                        @Html.ActionLink("ii", "Sukupuu", new { kaniid = ViewBag.Ii.KaniId })
+                                    }
+                                    else
+                                    {
+                                        <a>ii</a>
+                                    }
+                                    <br />
+                                    @ViewBag.Ii.Vnimi
+                                    <br />
+                                    <i>@ViewBag.Ii.Knimi</i>
+                                    <br />
+                                </span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.ActionLink("Haettu kani", "Details", new { id = ViewBag.Haettu.KaniId })
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.Haettu.Nimi "@ViewBag.Haettu.Kutsumanimi", @ViewBag.Haettu.Rotu
+            </dd>
+            <dt class="col-sm-2">
+                @if (ViewBag.E.KaniId != null)
+                {
+                    @Html.ActionLink("Emä", "Sukupuu", new { kaniid = ViewBag.E.KaniId })
+                }
+                else
+                {
+                    <a>Emä</a>
+                }
+            </dt>
+            <dd class="col-sm-10">
+                @if (ViewBag.E.Vnimi != null)
+                {
+                    <a>@ViewBag.E.Vnimi, "@ViewBag.E.Knimi"</a>
+                }
+                else
+                {
+                    <a>@ViewBag.E.Knimi</a>
+                }
+            </dd>
+            <dt class="col-sm-2">
+                @if (ViewBag.Ee.KaniId != null)
+                {
+                    @Html.ActionLink("Emän emä", "Sukupuu", new { kaniid = ViewBag.Ee.KaniId })
+                }
+                else
+                {
+                    <a> Emän emä</a>
+                }
+            </dt>
+            <dd class="col-sm-10">
+                @if (ViewBag.Ee.Vnimi != null)
+                {
+                    <a>@ViewBag.Ee.Vnimi, "@ViewBag.Ee.Knimi"</a>
+                }
+                else
+                {
+                    <a>@ViewBag.Ee.Knimi</a>
+                }
+
+            </dd>
+            <dt class="col-sm-2">
+                @if (ViewBag.Ei.KaniId != null)
+                {
+                    @Html.ActionLink("Emän isä", "Sukupuu", new { kaniid = ViewBag.Ei.KaniId })
+                }
+                else
+                {
+                    <a> Emän isä</a>
+                }
+            </dt>
+            <dd class="col-sm-10">
+                @if (ViewBag.Ei.Vnimi != null)
+                {
+                    <a>@ViewBag.Ei.Vnimi, "@ViewBag.Ei.Knimi"</a>
+                }
+                else
+                {
+                    <a>@ViewBag.Ei.Knimi</a>
+                }
+            </dd>
+            @*}*@
+            <dt class="col-sm-2">
+                @if (ViewBag.I.KaniId != null)
+                {
+                    @Html.ActionLink("Isä", "Sukupuu", new { kaniid = ViewBag.I.KaniId })
+                }
+                else
+                {
+                    <a>Isä</a>
+                }
+            </dt>
+            <dd class="col-sm-10">
+                @if (ViewBag.I.Vnimi != null)
+                {
+                    <a>@ViewBag.I.Vnimi, "@ViewBag.I.Knimi"</a>
+                }
+                else
+                {
+                    <a>@ViewBag.I.Knimi</a>
+                }
+            </dd>
+            <dt class="col-sm-2">
+                @if (ViewBag.Ie.KaniId != null)
+                {
+                    @Html.ActionLink("Isän emä", "Sukupuu", new { kaniid = ViewBag.Ie.KaniId })
+                }
+                else
+                {
+                    <a>Isän emä</a>
+                }
+            </dt>
+            <dd class="col-sm-10">
+                @if (ViewBag.Ie.Vnimi != null)
+                {
+                    <a>@ViewBag.Ie.Vnimi, "@ViewBag.Ie.Knimi"</a>
+                }
+                else
+                {
+                    <a>@ViewBag.Ie.Knimi</a>
+                }
+            </dd>
+            <dt class="col-sm-2">
+                @if (ViewBag.Ii.KaniId != null)
+                {
+                    @Html.ActionLink("Isän isä", "Sukupuu", new { kaniid = ViewBag.Ii.KaniId })
+                }
+                else
+                {
+                    <a>Isän isä</a>
+                }
+            </dt>
+            <dd class="col-sm-10">
+                @if (ViewBag.Ii.Vnimi != null)
+                {
+                    <a>@ViewBag.Ii.Vnimi, "@ViewBag.Ii.Knimi"</a>
+                }
+                else
+                {
+                    <a> @ViewBag.Ii.Knimi</a>
+                }
+            </dd>
+        </dl>
+    }
+</div>
+
+

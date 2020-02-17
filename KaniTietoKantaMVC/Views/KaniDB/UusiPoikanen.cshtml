@@ -1,0 +1,79 @@
+﻿@model KaniTietoKantaMVC.Models.Poikastiedot
+
+@{
+    ViewData["Title"] = "UusiPoikanen";
+}
+
+<h1 class="display-4">Poikasen tietojen lisääminen</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UusiPoikanen">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Email" class="form-control" type="hidden" value="@ViewBag.Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="PoikanenId" class="control-label"></label>
+                    <input asp-for="PoikanenId" class="form-control" />
+                    <span asp-validation-for="PoikanenId" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <input asp-for="PoikueId" class="form-control" type="hidden" value="@ViewBag.Poikue.PoikueId" />
+                <span asp-validation-for="PoikueId" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="KaniId" class="control-label"></label>
+                    <input asp-for="KaniId" class="form-control" />
+                    <span asp-validation-for="KaniId" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="Syntymäpv" class="control-label"></label>
+                <input type="text" value="@ViewBag.Poikue.Syntymäpv.ToString("dd.MM.yyyy")" class="form-control" readonly />
+                <span asp-validation-for="Syntymäpv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nimi" class="control-label"></label>
+                <input asp-for="Nimi" class="form-control" />
+                <span asp-validation-for="Nimi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Väri" class="control-label"></label>
+                <input asp-for="Väri" class="form-control" />
+                <span asp-validation-for="Väri" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sukupuoli" class="control-label"></label>
+                <select asp-for="Sukupuoli" name="Sukupuoli">
+                    <option value=uros>uros</option>
+                    <option value=naaras>naaras</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tietoja" class="control-label"></label>
+                <input asp-for="Tietoja" class="form-control" />
+                <span asp-validation-for="Tietoja" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="OstajaId" class="control-label"></label>
+                    <input asp-for="OstajaId" class="form-control" />
+                    <span asp-validation-for="OstajaId" class="text-danger"></span>
+                </div>*@
+            @*<div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <input type="submit" value="Lisää poikanen" class="btn btn-secondary btn-lg" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Poikuetiedot" asp-route-id="@ViewBag.Poikue.PoikueId" class="btn btn-secondary btn-sm">Takaisin poikueen tietoihin</a>
+</div>
+

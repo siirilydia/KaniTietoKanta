@@ -1,0 +1,107 @@
+﻿@using KaniTietoKantaMVC.Models;
+@using System.Linq;
+@*@model List<Kani>*@
+
+
+@{
+    ViewData["Title"] = "Home Page";
+
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">Tervetuloa</h1>
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-8">
+        <b>Tässä sovelluksessa voit tallettaa kätevästi kanilaasi liittyvät tiedot yhteen paikkaan.</b>
+        <br />
+        <br />
+        <p> Kanit-osiossa näet kanit, jotka ovat sinun omistuksessasi.</p>
+        <br />
+        <p>
+            Poikueet-osiossa näet kasvattamasi poikueet, niihin syntyneiden poikasten tiedot,
+            sekä poikasten ostajien tiedot.
+        </p>
+        <br />
+        <p>
+            Rokotukset-osiosta voit seurata kaniesi rokotusten uusintatarvetta. Löydät sieltä listattuna rokotetut kanit,
+            kanit joiden rokotukset ovat vanhentuneet, sekä kanit joita ei ole rokotettu.
+        </p>
+        <br />
+        <p>
+            Kehitteillä on jatkuvasti uusia ominaisuuksia, joten jos sinulla tulee idea jollekin
+            ominaisuudelle, jonka koet olevan tarpeellinen, kerrothan siitä
+            sähköpostitse siiri.lydia@hotmail.com.
+        </p>
+    </div>
+    <div class="col-md-3 uutiset">
+        <br />
+        <b>Uutta</b>
+        <br />
+        <br />
+        <p>
+            7.2.2020
+            <br />
+            Sukupuu-toiminto lisätty! Sukupuun ulkoasua tullaan vielä hiomaan, mutta juuri nyt löydät sieltä kanin sukutiedot kaksi sukupolvea eteenpäin.
+            Mikäli olet ostanut kanisi muualta, eikä sen poikuetta ole omassa tietokannassasi, voit lisätä kanin tietoihin isän sekä emän nimen.
+            Nämä näkyvät tällöin myös sukupuussa.
+            <br />
+        </p>
+        <br />
+        <p>
+            6.2.2020
+            <br />
+            Kanin voi nyt kirjata kuolleeksi ilman kuolinpäivän muistamista. Lisätty myös kanille kohdat "myyty" ja "ostajan tiedot".
+            <br />
+            <br />
+            Hakutuloksista suljetaan pois kuolleet ja myydyt kanit, voit sisällyttää ne hakuun valitsemalla "Näytä kuolleet"/"Näytä myydyt"-vaihtoehdot.
+            <br />
+        </p>
+        <br />
+        <p>
+            5.2.2020
+            <br />
+            Astutukset voi nyt kirjata omaan osioonsa ja siirtää tiedot poikuetietoihin, kun poikue on syntynyt.
+            <br />
+        </p>
+        <br />
+        <p>
+            3.2.2020
+            <br />
+            Tatuointikenttään voi nyt laittaa myös kirjaimia.
+            <br />
+            Hakutoiminnolla voi hakea kanin tiedoista, tänne voi lisätä esim. omia hakusanoja.
+            <br />
+        </p>
+        <br />
+        <b>Tulossa</b>
+        <br />
+        <br />
+        <p>
+            Sukupuun ulkoasun päivitys
+            <br />
+        </p>
+        <br />
+        <p>
+            Omat hashtagit
+            <br />
+        </p>
+
+    </div>
+</div>
+
+
+
+@*<select name="nimet">
+        @foreach (var item in ViewBag.Kaikkikanit)
+         {
+        <option value=@item.Kutsumanimi>@item.Kutsumanimi</option>
+         }
+
+    </select>*@
+

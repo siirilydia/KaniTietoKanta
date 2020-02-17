@@ -1,0 +1,72 @@
+﻿@model KaniTietoKantaMVC.Models.Ostaja
+
+@{
+    ViewData["Title"] = "UusiOstaja";
+}
+
+<a asp-action="Poikuetiedot" asp-route-id="@ViewBag.PoikueId" class="btn btn-secondary btn-sm">Takaisin poikueen tietoihin</a>
+<br />
+<br />
+<h1 class="display-4">Ostajan tietojen lisääminen</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UusiOstaja">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="PoikanenId" class="form-control" value="@ViewBag.PoikasenId" />
+                <span asp-validation-for="PoikanenId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nimi" class="control-label">Nimi *</label>
+                <input asp-for="Nimi" class="form-control" />
+                <span asp-validation-for="Nimi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Puhnro" class="control-label">Puhelinnumero</label>
+                <input asp-for="Puhnro" class="form-control" />
+                <span asp-validation-for="Puhnro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OEmail" class="control-label">Sähköpostiosoite</label>
+                <input asp-for="OEmail" class="form-control" />
+                <span asp-validation-for="OEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ostopäivä" class="control-label">Ostopäivä *</label>
+                <input asp-for="Ostopäivä" class="form-control">
+                @*<input asp-for="Ostopäivä" type="text" id="datepicker" class="form-control">*@
+                <span asp-validation-for="Ostopäivä" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hinta" class="control-label"></label>
+                <input asp-for="Hinta" class="form-control" />
+                <span asp-validation-for="Hinta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Maksettu" class="control-label"></label>
+                @Html.EditorFor(x => x.Maksettu)
+                @*<input asp-for="Maksettu" class="form-control" />
+                    <span asp-validation-for="Maksettu" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="Tietoja" class="control-label">Lisätietoja</label>
+                <input asp-for="Tietoja" class="form-control" />
+                <span asp-validation-for="Tietoja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Email" class="form-control" value="@ViewBag.Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lisää ostajan tiedot" class="btn btn-secondary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div>
+    <a asp-action="Poikuetiedot" asp-route-id="@ViewBag.PoikueId" class="btn btn-secondary btn-sm">Takaisin poikueen tietoihin</a>
+</div>*@
+

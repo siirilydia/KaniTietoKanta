@@ -1,0 +1,113 @@
+﻿@model IEnumerable<KaniTietoKantaMVC.Models.Kani>
+
+@{
+    ViewData["Title"] = "Kaikki";
+}
+
+@*<script>
+        $(document).on("click", ".ClickToEdit", function () {
+        var custID = $(this).data("KaniId");
+        window.opener.location.href("/Edit/Edit?id=" + KaniId);
+    });
+    </script>*@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h1 class="display-4">Kanit</h1>
+        </div>
+        <div class="col-md-3">
+            <p>
+                <a asp-action="UusiKani" class="btn btn-secondary btn-lg">Lisää kani</a>
+            </p>
+        </div>
+    </div>
+</div>
+<br />
+<form class="form-inline" method="get" action="@Url.Action("Kaikki", "KaniDB")">
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="text" class="form-control" name="hakusana" id="hakusana" value=@ViewBag.HakuSana>
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+        <div class="form-check form-check-inline">
+            <input type="checkbox" class="form-check-input" name="kuolleet" id="kuolleet" value="true" @(ViewBag.Kuolleet == true ? "checked" : "unchecked")>
+            <label class="form-check-label" for="kuolleet">Näytä kuolleet</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" class="form-check-input" name="myydyt" id="myydyt" value="true" @(ViewBag.Myydyt == true ? "checked" : "unchecked")>
+            <label class="form-check-label" for="myydyt">Näytä myydyt</label>
+        </div>
+    </div>
+    <button type="submit">Hae</button>
+</form>
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Virallinen nimi", "Kaikki", new { järjestys = ViewBag.VNimiJärjestys, hakusana = ViewBag.HakuSana, kuolleet = ViewBag.Kuolleet, myydyt = ViewBag.Myydyt})
+            </th>
+            <th scope="col" class="d-none d-lg-table-cell">
+                @Html.ActionLink("Kutsumanimi", "Kaikki", new { järjestys = ViewBag.KNimiJärjestys, hakusana = ViewBag.HakuSana, kuolleet = ViewBag.Kuolleet, myydyt = ViewBag.Myydyt})
+            </th>
+            <th>
+                @Html.ActionLink("Rotu", "Kaikki", new { järjestys = ViewBag.RotuJärjestys, hakusana = ViewBag.HakuSana, kuolleet = ViewBag.Kuolleet, myydyt = ViewBag.Myydyt})
+            </th>
+            <th scope="col" class="d-none d-sm-table-cell">
+                @Html.ActionLink("Väri", "Kaikki", new { järjestys = ViewBag.VäriJärjestys, hakusana = ViewBag.HakuSana, kuolleet = ViewBag.Kuolleet, myydyt = ViewBag.Myydyt})
+            </th>
+            <th scope="col" class="d-none d-md-table-cell">
+                @Html.ActionLink("Sukupuoli", "Kaikki", new { järjestys = ViewBag.SkpJärjestys, hakusana = ViewBag.HakuSana, kuolleet = ViewBag.Kuolleet, myydyt = ViewBag.Myydyt})
+            </th>
+            <th>
+                @Html.ActionLink("Syntymäpäivä", "Kaikki", new { järjestys = ViewBag.SpvJärjestys, hakusana = ViewBag.HakuSana, kuolleet = ViewBag.Kuolleet, myydyt = ViewBag.Myydyt})
+            </th>
+            @if (ViewBag.Kuolleet == true)
+            {
+            <th scope="col" class="d-none d-lg-table-cell">
+                @Html.ActionLink("Kuolinpäivä", "Kaikki", new { järjestys = ViewBag.KpvJärjestys, hakusana = ViewBag.HakuSana, kuolleet = ViewBag.Kuolleet, myydyt = ViewBag.Myydyt})
+            </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr onclick="location.href = '@(Url.Action("Details", "KaniDB", new { id = item.KaniId }))'">
+            <td>
+                @Html.DisplayFor(modelItem => item.Nimi)
+            </td>
+            <td scope="col" class="d-none d-lg-table-cell">
+                @Html.DisplayFor(modelItem => item.Kutsumanimi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rotu)
+            </td>
+            <td scope="col" class="d-none d-sm-table-cell">
+                @Html.DisplayFor(modelItem => item.Väri)
+            </td>
+            <td scope="col" class="d-none d-md-table-cell">
+                @Html.DisplayFor(modelItem => item.Sukupuoli)
+            </td>
+            <td>
+                @Html.ValueFor(modelItem => item.Syntymäpäivä, "{0:dd.MM.yyyy}")
+            </td>
+            @if (ViewBag.Kuolleet == true)
+                {
+            <td scope="col" class="d-none d-lg-table-cell">
+                @Html.ValueFor(modelItem => item.Kuolinpäivä, "{0:dd.MM.yyyy}")
+            </td>
+                }
+        </tr>
+        }
+    </tbody>
+</table>
+<p>
+    Sivunumero:
+    @for (int i = 1; i <= ViewBag.Sivumäärä; i++)
+    {
+    @Html.ActionLink(i.ToString(), "Kaikki", new { järjestys = ViewBag.NykJärjestys, nykhaku = ViewBag.HakuSana, kuolleet = ViewBag.Kuolleet, myydyt = ViewBag.Myydyt, sivunro = i - 1 })
+    <text> </text>
+    }
+</p>

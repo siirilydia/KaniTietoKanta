@@ -1,0 +1,146 @@
+﻿@model KaniTietoKantaMVC.Models.Kani
+
+@{
+    ViewData["Title"] = "Details";
+}
+<a asp-action="Kaikki" class="btn btn-secondary btn-sm">Näytä kaikki kanit</a>
+<br />
+<br />
+<br />
+<h1 class="display-4">@Model.Nimi "@Model.Kutsumanimi"</h1>
+<br />
+
+<div>
+    <hr />
+    <dl class="row">
+        @*<dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.KaniId)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.KaniId)
+            </dd>*@
+        <dt class="col-sm-2">
+            Virallinen nimi
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nimi)
+        </dd>
+        <dt class="col-sm-2">
+            Kutsumanimi
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Kutsumanimi)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Syntymäpäivä)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.ValueFor(model => model.Syntymäpäivä, "{0:dd.MM.yyyy}")
+        </dd>
+        @if (Model.Kuollut == true)
+        {
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kuolinpäivä)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.ValueFor(model => model.Kuolinpäivä, "{0:dd.MM.yyyy}")
+        </dd>
+        }
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Rotu)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Rotu)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Väri)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Väri)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sukupuoli)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sukupuoli)
+        </dd>
+        <dt class="col-sm-2">
+            Ok-tatuointi
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ok)
+        </dd>
+        <dt class="col-sm-2">
+            Vk-tatuointi
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vk)
+        </dd>
+        @if(Model.PoikueenId==null)
+        {
+        <dt class="col-sm-2">
+            Emän nimi
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmänNimi)
+        </dd>
+        <dt class="col-sm-2">
+            Isän nimi
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsänNimi)
+        </dd>
+        }
+        @if (Model.Rokotettu == true)
+        {
+        <dt class="col-sm-2">
+            Rokotuspäivä
+        </dt>
+        <dd class="col-sm-10">
+            @Html.ValueFor(model => model.Rokotuspv, "{0:dd.MM.yyyy}")
+        </dd>
+        }
+        @if (Model.Myyty == true)
+        {
+        <dt class="col-sm-2">
+            Ostajan tiedot
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OstajanTiedot)
+        </dd>
+        }
+        @if (Model.KasvattajanTiedot!= null)
+        {
+        <dt class="col-sm-2">
+            Kasvattajan tietoja
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.KasvattajanTiedot)
+        </dd>
+        }
+        @*<dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PoikueenId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PoikueenId)
+            </dd>*@
+        <dt class="col-sm-2">
+            Lisätietoja
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tietoja)
+        </dd>
+        @if (Model.PoikueenId != null)
+        {
+        <dt class="col-sm-2">
+        </dt>
+        <dd class="col-sm-10">
+            <a asp-action="Poikuetiedot" asp-route-id="@Model.PoikueenId" class="btn btn-secondary btn-sm">Poikueen tiedot</a>
+        </dd>
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="PoistaKani" asp-route-id="@Model.KaniId" class="btn btn-secondary" onclick="return confirm('Haluatko varmasti poistaa kanin tiedot?');">Poista kani</a>
+    <a asp-action="MuokkaaKania" asp-route-id="@Model.KaniId" class="btn btn-secondary">Muokkaa tietoja</a>
+</div>

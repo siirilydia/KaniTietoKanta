@@ -1,0 +1,195 @@
+﻿@model KaniTietoKantaMVC.Models.Kani
+
+@{
+    ViewData["Title"] = "MuokkaaKania";
+}
+<script>
+    $(document).ready(function () {
+
+
+
+        if ($('.poikuevalinta').val() != 0) {
+            $('.poikuetiedot').css("display", "none");
+        }
+
+        if (!$('.kuollut').is(':checked')) {
+            $('.kuolinpv').css("display", "none");
+        }
+
+        if (!$('.myyty').is(':checked')) {
+            $('.ostajantiedot').css("display", "none");
+        }
+
+        if (!$('.rokotettu').is(':checked')) {
+            $('.rokotuspv').css("display", "none");
+        }
+
+        //when the select changes:
+        $('.poikuevalinta').on("change", function () {
+            if ($(this).val() != 0) {
+                $('.poikuetiedot').css("display", "none");
+            }
+            else {
+                $('.poikuetiedot').css("display", "inline");
+            }
+        });
+
+        $('.kuollut').click(function () {
+            if ($(this).is(':checked')) {
+                $('.kuolinpv').css("display", "inline");
+            }
+            else {
+                $('.kuolinpv').css("display", "none");
+            }
+        });
+
+        $('.myyty').click(function () {
+            if ($(this).is(':checked')) {
+                $('.ostajantiedot').css("display", "inline");
+            }
+            else {
+                $('.ostajantiedot').css("display", "none");
+            }
+        });
+
+        $('.rokotettu').click(function () {
+            if ($(this).is(':checked')) {
+                $('.rokotuspv').css("display", "inline");
+            }
+            else {
+                $('.rokotuspv').css("display", "none");
+            }
+        });
+
+    });
+</script>
+
+<a asp-action="Details" asp-route-id="@Model.KaniId" class="btn btn-secondary btn-sm">Takaisin kanin tietoihin</a>
+<br />
+<br />
+<h1 class="display-4">Kanin tietojen muokkaaminen</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="MuokkaaKania">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="KaniId" class="form-control" />
+                <span asp-validation-for="KaniId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nimi" class="control-label">Virallinen nimi</label>
+                <input asp-for="Nimi" class="form-control" />
+                <span asp-validation-for="Nimi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kutsumanimi" class="control-label">Kutsumanimi *</label>
+                <input asp-for="Kutsumanimi" class="form-control" />
+                <span asp-validation-for="Kutsumanimi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PoikueenId" class="control-label">Poikue</label>
+                <select asp-for="PoikueenId" class="form-control poikuevalinta">
+                    <option value="0">Ei tietokannassa</option>
+                    @foreach (var item in ViewBag.Poikueet)
+                    {
+                        <option value=@item.PoikueId>@item.Syntymäpv.ToString("dd.MM.yyyy") @item.EmäKnimi x @item.IsäKnimi</option>
+                    }
+                </select>
+                <small id="emailHelp" class="form-text text-muted">Jos valitset tästä poikueen johon kani on syntynyt, ei syntymäpäivää ja rotua tarvitse syöttää.</small>
+                <span asp-validation-for="PoikueenId" class="text-danger"></span>
+            </div>
+            <div class="form-group poikuetiedot">
+                <label asp-for="Syntymäpäivä" class="control-label">Syntymäpäivä *</label>
+                <input asp-for="Syntymäpäivä" class="form-control">
+                @*<input asp-for="Syntymäpäivä" type="text" id="datepicker" class="form-control">*@
+                <span asp-validation-for="Syntymäpäivä" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kuollut" class="control-label"></label>
+                @Html.CheckBoxFor(x => x.Kuollut, new { @class = "kuollut" })
+            </div>
+            <div class="form-group kuolinpv">
+                <label asp-for="Kuolinpäivä" class="control-label"></label>
+                <input asp-for="Kuolinpäivä" class="form-control" />
+                <span asp-validation-for="Kuolinpäivä" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Väri" class="control-label"></label>
+                <input asp-for="Väri" class="form-control" />
+                <span asp-validation-for="Väri" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ok" class="control-label"></label>
+                <input asp-for="Ok" class="form-control" />
+                <span asp-validation-for="Ok" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vk" class="control-label"></label>
+                <input asp-for="Vk" class="form-control" />
+                <span asp-validation-for="Vk" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sukupuoli" class="control-label"></label>
+                <select asp-for="Sukupuoli" name="Sukupuoli">
+                    <option value=uros>uros</option>
+                    <option value=naaras>naaras</option>
+                </select>
+                <span asp-validation-for="Sukupuoli" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rokotettu" class="control-label"></label>
+                @Html.CheckBoxFor(x => x.Rokotettu, new { @class = "rokotettu" })
+            </div>
+            <div class="form-group rokotuspv">
+                <label asp-for="Rokotuspv" class="control-label">Rokotuspäivä</label>
+                <input asp-for="Rokotuspv" class="form-control" />
+                <span asp-validation-for="Rokotuspv" class="text-danger"></span>
+            </div>
+            <div class="form-group poikuetiedot">
+                <label asp-for="Rotu" class="control-label"></label>
+                <input asp-for="Rotu" class="form-control" />
+                <span asp-validation-for="Rotu" class="text-danger"></span>
+            </div>
+            <div class="form-group poikuetiedot">
+                <label asp-for="EmänNimi" class="control-label">Emän nimi</label>
+                <input asp-for="EmänNimi" class="form-control" />
+                <span asp-validation-for="EmänNimi" class="text-danger"></span>
+            </div>
+
+            <div class="form-group poikuetiedot">
+                <label asp-for="IsänNimi" class="control-label">Isän nimi</label>
+                <input asp-for="IsänNimi" class="form-control" />
+                <span asp-validation-for="IsänNimi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Myyty" class="control-label"></label>
+                @Html.CheckBoxFor(x => x.Myyty, new { @class = "myyty" })
+            </div>
+            <div class="form-group ostajantiedot">
+                <label asp-for="OstajanTiedot" class="control-label">Ostajan tiedot</label>
+                <input asp-for="OstajanTiedot" class="form-control" />
+                <span asp-validation-for="OstajanTiedot" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KasvattajanTiedot" class="control-label">Kasvattajan tiedot</label>
+                <input asp-for="KasvattajanTiedot" class="form-control" />
+                <span asp-validation-for="KasvattajanTiedot" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tietoja" class="control-label">Lisätietoja</label>
+                <input asp-for="Tietoja" class="form-control" />
+                <span asp-validation-for="Tietoja" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Tallenna" class="btn btn-secondary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

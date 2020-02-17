@@ -1,0 +1,93 @@
+﻿@model IEnumerable<KaniTietoKantaMVC.Models.Poikueet>
+
+@{
+    ViewData["Title"] = "Poikueet";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h1 class="display-4">Poikueet</h1>
+        </div>
+        <div class="col-md-3">
+            <p>
+                <a asp-action="UusiPoikue" class="btn btn-secondary btn-lg">Lisää poikue</a>
+            </p>
+        </div>
+    </div>
+</div>
+<br />
+<form class="form-inline" method="get" action="@Url.Action("Poikueet", "KaniDB")">
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="text" class="form-control" name="hakusana" id="hakusana" value=@ViewBag.HakuSana>
+    </div>
+    <button type="submit">Hae</button>
+</form>
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Syntymäpäivä", "Poikueet", new { järjestys = ViewBag.SpvJärjestys, hakusana = ViewBag.HakuSana})
+            </th>
+            <th scope="col" class="d-none d-md-table-cell">
+                @Html.ActionLink("Rotu", "Poikueet", new { järjestys = ViewBag.RotuJärjestys, hakusana = ViewBag.HakuSana})
+            </th>
+            <th scope="col" class="d-none d-md-table-cell">
+                @Html.ActionLink("Poikasia", "Poikueet", new { järjestys = ViewBag.LkmJärjestys, hakusana = ViewBag.HakuSana})
+            </th>
+            <th>
+                @Html.ActionLink("Emä", "Poikueet", new { järjestys = ViewBag.ENimiJärjestys, hakusana = ViewBag.HakuSana})
+            </th>
+            <th>
+                @Html.ActionLink("Isä", "Poikueet", new { järjestys = ViewBag.INimiJärjestys, hakusana = ViewBag.HakuSana})
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr onclick="location.href = '@(Url.Action("Poikuetiedot", "KaniDB", new { id = item.PoikueId }))'">
+            <td>
+                @Html.ValueFor(modelItem => item.Syntymäpv, "{0:dd.MM.yyyy}")
+            </td>
+            <td scope="col" class="d-none d-md-table-cell">
+                @Html.DisplayFor(modelItem => item.Rotu)
+            </td>
+            <td scope="col" class="d-none d-md-table-cell">
+                @Html.DisplayFor(modelItem => item.Poikaslkm)
+            </td>
+            <td>
+                @if (item.EmäVnimi != null)
+                {
+                    @Html.DisplayFor(modelItem => item.EmäVnimi)
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.EmäKnimi)
+                }
+            </td>
+            <td>
+                @if (item.IsäVnimi != null)
+                {
+                    @Html.DisplayFor(modelItem => item.IsäVnimi)
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.IsäKnimi)
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<p>
+    Sivunumero:
+    @for (int i = 1; i <= ViewBag.Sivumäärä; i++)
+        {
+    @Html.ActionLink(i.ToString(), "Poikueet", new { järjestys = ViewBag.NykJärjestys, nykhaku=ViewBag.HakuSana, sivunro = i - 1})
+    <text> </text>
+        }
+</p>
+

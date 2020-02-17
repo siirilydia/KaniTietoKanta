@@ -1,0 +1,297 @@
+﻿@model KaniTietoKantaMVC.ViewModels.PoikueTietoNäkymä
+
+@{
+    ViewData["Title"] = "Poikuetiedot";
+}
+
+<a asp-action="Poikueet" class="btn btn-secondary btn-sm">Näytä kaikki poikueet</a>
+<br />
+<br />
+<br />
+<h1 class="display-4">@Model.poikue.EmäKnimi x @Model.poikue.IsäKnimi</h1>
+<br />
+
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Poikue
+        </dt>
+        <dd class="col-sm-10">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Syntymäpäivä@*@Html.DisplayNameFor(model => model.Syntymäpv)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.ValueFor(model => model.poikue.Syntymäpv, "{0:dd.MM.yyyy}")
+                </dd>
+                <dt class="col-sm-2">
+                    Poikasia@*@Html.DisplayNameFor(model => model.Poikaslkm)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.poikue.Poikaslkm)
+                </dd>
+                <dt class="col-sm-2">
+                    Rotu @*@Html.DisplayNameFor(model => model.Rotu)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.poikue.Rotu)
+                </dd>
+            </dl>
+        </dd>
+        <dt class="col-sm-2">
+            Emä@*<h3>Emä</h3>*@
+        </dt>
+        <dd class="col-sm-10">
+            <dl class="row">
+
+                <dt class="col-sm-2">
+                    Virallinen nimi@*@Html.DisplayNameFor(model => model.EmäVnimi)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.poikue.EmäId != null && Model.poikue.EmäVnimi != null)
+                    {
+                        @Html.ActionLink(Model.poikue.EmäVnimi, "Details", new { id = Model.poikue.EmäId })
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.poikue.EmäVnimi)
+                    }
+                </dd>
+                <dt class="col-sm-2">
+                    Kutsumanimi@*@Html.DisplayNameFor(model => model.EmäKnimi)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.poikue.EmäId != null && Model.poikue.EmäVnimi == null)
+                    {
+                        @Html.ActionLink(Model.poikue.EmäKnimi, "Details", new { id = Model.poikue.EmäId })
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.poikue.EmäKnimi)
+                    }
+                </dd>
+                @*<dt class="col-sm-2">
+                    Vk-tatuointi
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.poikue.EmäVk)
+                </dd>*@
+
+            </dl>
+        </dd>
+        <dt class="col-sm-2">
+            Isä
+        </dt>
+        <dd class="col-sm-10">
+            <dl class="row">
+
+                <dt class="col-sm-2">
+                    Virallinen nimi@*@Html.DisplayNameFor(model => model.IsäVnimi)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.poikue.IsäId != null && Model.poikue.IsäVnimi != null)
+                    {
+                        @Html.ActionLink(Model.poikue.IsäVnimi, "Details", new { id = Model.poikue.IsäId })
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.poikue.IsäVnimi)
+                    }
+                </dd>
+                <dt class="col-sm-2">
+                    Kutsumanimi  @*@Html.DisplayNameFor(model => model.IsäKnimi)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.poikue.IsäId != null && Model.poikue.IsäVnimi == null)
+                    {
+                        @Html.ActionLink(Model.poikue.IsäKnimi, "Details", new { id = Model.poikue.IsäId })
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.poikue.IsäKnimi)
+                    }
+                </dd>
+                @*<dt class="col-sm-2">
+                    Vk-tatuointi
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.poikue.IsäVk)
+                </dd>*@
+
+            </dl>
+        </dd>
+        <dt class="col-sm-2">
+            Lisätietoja
+        </dt>
+        <dd class="col-sm-10">
+            <dl class="row">
+
+                @*<dt class="col-sm-10">
+                    Virallinen nimi
+                </dt>*@
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.poikue.Tietoja)
+                </dd>
+            </dl>
+        </dd>
+    </dl>
+    <br />
+    <a asp-action="UusiPoikanen" asp-route-poikueid="@Model.poikue.PoikueId" class="btn btn-secondary">Lisää poikanen</a>
+    <a asp-action="PoistaPoikue" asp-route-id="@Model.poikue.PoikueId" class="btn btn-secondary" onclick="return confirm('Haluatko varmasti poistaa poikueen tiedot?');">Poista poikue</a>
+    <a asp-action="MuokkaaPoikuetta" asp-route-id="@Model.poikue.PoikueId" class="btn btn-secondary">Muokkaa</a>
+    <br />
+    <br />
+
+    <h4 class="display-4">Poikasten tiedot</h4>
+    <br />
+    <br />
+    @for (int i = 0; i < Model.pt.Count; i++)
+    {
+        <dl class="row">
+            <dd class="col-sm-5">
+                <dl class="row">
+                    <dt class="col-sm-3">
+                        Nimi
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Model.pt[i].Nimi
+                    </dd>
+                    <dt class="col-sm-3">
+                        Väri
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Model.pt[i].Väri
+                    </dd>
+                    <dt class="col-sm-3">
+                        Sukupuoli
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Model.pt[i].Sukupuoli
+                    </dd>
+                    <dt class="col-sm-3">
+                        Lisätietoja
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Model.pt[i].Tietoja
+                    </dd>
+                    <dt class="col-sm-12">
+                        <br />
+                        <a asp-action="PoistaPoikanen" asp-route-id="@Model.pt[i].PoikanenId" class="btn btn-secondary btn-sm" onclick="return confirm('Haluatko varmasti poistaa poikasen tiedot?');">Poista</a>
+                        <a asp-action="MuokkaaPoikasta" asp-route-id="@Model.pt[i].PoikanenId" class="btn btn-secondary btn-sm">Muokkaa</a>
+                        @if (Model.pt[i].KaniId != null)
+                        {
+                            <a asp-action="Details" asp-route-id="@Model.pt[i].KaniId" class="btn btn-secondary btn-sm">Näytä tiedot</a>
+                        }
+                        else
+                        {
+                            <a asp-action="UusiKani" asp-route-id="@Model.pt[i].PoikanenId" class="btn btn-secondary btn-sm">Lisää omiin kaneihin</a>
+                        }
+                        @if (Model.pt[i].OstajaId == null)
+                        {
+                            <br />
+                            <br />
+                            <a asp-action="UusiOstaja" asp-route-id="@Model.pt[i].PoikanenId" class="btn btn-secondary btn-sm">Lisää ostajan tiedot</a>
+                        }
+                        else
+                        {
+                            <br />
+                            <br />
+                            @*@Html.ActionLink("Poista ostajan tiedot","PoistaOstaja",new {id=Model.pt[i].OstajaId},new { onclick = "return confirm('Haluatko varmasti poistaa ostajan tiedot?');" }, new{class = "btn btn-secondary btn-sm"})*@
+                            <a asp-action="PoistaOstaja" asp-route-id="@Model.pt[i].OstajaId" class="btn btn-secondary btn-sm" onclick="return confirm('Haluatko varmasti poistaa ostajan tiedot?');">Poista ostajan tiedot</a>
+                            <a asp-action="MuokkaaOstajaa" asp-route-id="@Model.pt[i].OstajaId" class="btn btn-secondary btn-sm">Muokkaa ostajan tietoja</a>
+                        }
+                    </dt>
+                </dl>
+            </dd>
+            <dd class="col-sm-6">
+                <dl class="row">
+                    @if (Model.pt[i].OstajaId != null)
+                    {
+                        foreach (var item in Model.ostajat)
+                        {
+                            if (item.OstajaId == Model.pt[i].OstajaId)
+                            {
+                                <dt class="col-sm-3">
+                                    Ostajan nimi
+                                </dt>
+                                <dd class="col-sm-9">
+                                    @item.Nimi
+                                </dd>
+                                <dt class="col-sm-3">
+                                    Puhelinnumero
+                                </dt>
+                                <dd class="col-sm-9">
+                                    @item.Puhnro
+                                </dd>
+                                <dt class="col-sm-3">
+                                    Sähköposti
+                                </dt>
+                                <dd class="col-sm-9">
+                                    @item.OEmail
+                                </dd>
+                                <dt class="col-sm-3">
+                                    Ostopäivä
+                                </dt>
+                                <dd class="col-sm-9">
+                                    @Html.ValueFor(modelItem => item.Ostopäivä, "{0:dd.MM.yyyy}")
+
+                                    @*@(item.Ostopäivä.Value?null:("dd.MM.yyyy")*@
+                                </dd>
+                                <dt class="col-sm-3">
+                                    Hinta
+                                </dt>
+                                <dd class="col-sm-9">
+                                    @item.Hinta
+                                </dd>
+                                <dt class="col-sm-3">
+                                    Maksettu
+                                </dt>
+                                <dd class="col-sm-9">
+                                    @if (item.Maksettu)
+                                    {
+                                        <a>Kyllä</a>
+                                    }
+                                    else
+                                    {
+                                        <a>Ei</a>
+                                    }
+                                </dd>
+                                <dt class="col-sm-3">
+                                    Lisätietoja
+                                </dt>
+                                <dd class="col-sm-9">
+                                    @item.Tietoja
+                                </dd>
+                            }
+                        }
+                    }
+                </dl>
+            </dd>
+        </dl>
+
+        @*<a asp-action="PoistaPoikanen" asp-route-id="@Model.pt[i].PoikanenId" class="btn btn-secondary btn-sm">Poista</a>
+            <a asp-action="MuokkaaPoikasta" asp-route-id="@Model.pt[i].PoikanenId" class="btn btn-secondary btn-sm">Muokkaa</a>
+                    if (Model.pt[i].KaniId != null)
+                    {
+            <a asp-action="Details" asp-route-id="@Model.pt[i].KaniId" class="btn btn-secondary btn-sm">Näytä tiedot</a>
+                    }
+                    else
+                    {
+            <a asp-action="UusiKani" asp-route-id="@Model.pt[i].PoikanenId" class="btn btn-secondary btn-sm">Lisää omiin kaneihin</a>
+                    }
+                    if (Model.pt[i].OstajaId == null)
+                    {
+            <a asp-action="UusiOstaja" asp-route-id="@Model.pt[i].PoikanenId" class="btn btn-secondary btn-sm">Lisää ostajan tiedot</a>
+                    }*@
+
+    }
+</div>
+<div>
+    @*@Html.ActionLink("Poista", "PoistaPoikue", new { id = Model.poikue.PoikueId }) |*@
+    @*@Html.ActionLink("Muokkaa", "MuokkaaPoikuetta", new { id = Model.poikue.PoikueId }) |*@
+
+
+</div>
+

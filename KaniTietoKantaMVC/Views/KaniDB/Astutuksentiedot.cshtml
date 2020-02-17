@@ -1,0 +1,147 @@
+﻿@model KaniTietoKantaMVC.Models.Astutukset
+
+@{
+    ViewData["Title"] = "Astutuksentiedot";
+}
+
+<a asp-action="Astutukset" class="btn btn-secondary btn-sm">Näytä kaikki astutukset</a>
+<br />
+<br />
+<br />
+<h1 class="display-4">@Model.EmäKnimi x @Model.IsäKnimi</h1>
+<br />
+
+<div>
+    <hr />
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            Emä
+        </dt>
+        <dd class="col-sm-10">
+            <dl class="row">
+
+                <dt class="col-sm-2">
+                    Virallinen nimi
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.EmäId != null && Model.EmäVnimi != null)
+                    {
+                    @Html.ActionLink(Model.EmäVnimi, "Details", new { id = Model.EmäId })
+                    }
+                    else
+                    {
+                    @Html.DisplayFor(model => model.EmäVnimi)
+                    }
+                </dd>
+                <dt class="col-sm-2">
+                    Kutsumanimi
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.EmäId != null && Model.EmäVnimi == null)
+                    {
+                    @Html.ActionLink(Model.EmäKnimi, "Details", new { id = Model.EmäId })
+                    }
+                    else
+                    {
+                    @Html.DisplayFor(model => model.EmäKnimi)
+                    }
+                </dd>
+                <dt class="col-sm-2">
+                    Rotu
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.EmäRotu)
+                </dd>
+                <dt class="col-sm-2">
+                    Väri
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.EmäVäri)
+                </dd>
+                <dt class="col-sm-2">
+                    Syntymäpäivä
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.EmäSyntymäpv, "{0:dd.MM.yyyy}")
+                </dd>
+
+            </dl>
+        </dd>
+        <dt class="col-sm-2">
+            Isä
+        </dt>
+        <dd class="col-sm-10">
+            <dl class="row">
+
+                <dt class="col-sm-2">
+                    Virallinen nimi
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.IsäId != null && Model.IsäVnimi != null)
+                    {
+                    @Html.ActionLink(Model.IsäVnimi, "Details", new { id = Model.IsäId })
+                    }
+                    else
+                    {
+                    @Html.DisplayFor(model => model.IsäVnimi)
+                    }
+                </dd>
+                <dt class="col-sm-2">
+                    Kutsumanimi
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.IsäId != null && Model.IsäVnimi == null)
+                    {
+                    @Html.ActionLink(Model.IsäKnimi, "Details", new { id = Model.IsäId })
+                    }
+                    else
+                    {
+                    @Html.DisplayFor(model => model.IsäKnimi)
+                    }
+                </dd>
+                <dt class="col-sm-2">
+                    Rotu
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.IsäRotu)
+                </dd>
+                <dt class="col-sm-2">
+                    Väri
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.IsäVäri)
+                </dd>
+                <dt class="col-sm-2">
+                    Syntymäpäivä
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.IsäSyntymäpv, "{0:dd.MM.yyyy}")
+                </dd>
+            </dl>
+        </dd>
+        <dt class="col-sm-2">
+        </dt>
+        <dd class="col-sm-10">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Astutuspäivä
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Astutuspäivä, "{0:dd.MM.yyyy}")
+                </dd>
+                <dt class="col-sm-2">
+                    Lisätietoja
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Lisätietoja)
+                </dd>
+            </dl>
+        </dd>
+    </dl>
+    <br />
+
+    <a asp-action="PoistaAstutus" asp-route-id="@Model.AstutusId" class="btn btn-secondary" onclick="return confirm('Haluatko varmasti poistaa astutuksen tiedot?');">Poista tiedot</a>
+    <a asp-action="MuokkaaAstutusta" asp-route-id="@Model.AstutusId" class="btn btn-secondary">Muokkaa tietoja</a>
+    <a asp-action="UusiPoikue" asp-route-id="@Model.AstutusId" class="btn btn-secondary">Siirrä poikueisiin</a>
+</div>

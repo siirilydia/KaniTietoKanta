@@ -1,0 +1,179 @@
+﻿@model KaniTietoKantaMVC.Models.Poikueet
+
+@{
+    ViewData["Title"] = "Poikuetiedot";
+}
+
+<h1 class="display-4">@Model.EmäKnimi x @Model.IsäKnimi</h1>
+
+<a asp-action="UusiPoikanen" asp-route-poikueid="@Model.PoikueId" class="btn btn-secondary btn-lg">Lisää poikanen</a>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Poikue
+        </dt>
+        <dd class="col-sm-10">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Syntymäpäivä@*@Html.DisplayNameFor(model => model.Syntymäpv)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.ValueFor(model => model.Syntymäpv, "{0:dd.MM.yyyy}")
+                </dd>
+                <dt class="col-sm-2">
+                    Poikasten määrä@*@Html.DisplayNameFor(model => model.Poikaslkm)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Poikaslkm)
+                </dd>
+                <dt class="col-sm-2">
+                    Rotu @*@Html.DisplayNameFor(model => model.Rotu)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Rotu)
+                </dd>
+            </dl>
+        </dd>
+        @*<dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.PoikueId)
+            </dt>*@
+        @*<dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.PoikueId)
+            </dd>*@
+        @*<dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.EmäId)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.EmäId)
+            </dd>*@
+        @*<h6>Emä</h6>*@
+        <dt class="col-sm-2">
+            Emä@*<h3>Emä</h3>*@
+        </dt>
+        <dd class="col-sm-10">
+            <dl class="row">
+
+                <dt class="col-sm-2">
+                    Virallinen nimi@*@Html.DisplayNameFor(model => model.EmäVnimi)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.EmäVnimi)
+                </dd>
+                <dt class="col-sm-2">
+                    Kutsumanimi@*@Html.DisplayNameFor(model => model.EmäKnimi)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.EmäKnimi)
+                </dd>
+                <dt class="col-sm-2">
+                    Vk-tatuointi @*@Html.DisplayNameFor(model => model.EmäVk)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.EmäVk)
+                </dd>
+
+            </dl>
+        </dd>
+        @*<dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.IsäId)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.IsäId)
+            </dd>*@
+        <dt class="col-sm-2">
+            Isä
+        </dt>
+        <dd class="col-sm-10">
+            <dl class="row">
+
+                <dt class="col-sm-2">
+                    Virallinen nimi@*@Html.DisplayNameFor(model => model.IsäVnimi)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.IsäVnimi)
+                </dd>
+                <dt class="col-sm-2">
+                    Kutsumanimi  @*@Html.DisplayNameFor(model => model.IsäKnimi)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.IsäKnimi)
+                </dd>
+                <dt class="col-sm-2">
+                    Vk-tatuointi @*@Html.DisplayNameFor(model => model.IsäVk)*@
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.IsäVk)
+                </dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <br />
+
+    @foreach (var item in ViewBag.PoikasLista)
+    {
+    <dl class="row">
+        <dt class="col-sm-2">
+            Nimi
+        </dt>
+        <dd class="col-sm-10">
+            @item.poikanen_nimi
+        </dd>
+        <dt class="col-sm-2">
+            Väri
+        </dt>
+        <dd class="col-sm-10">
+            @item.poikanen_väri
+        </dd>
+        <dt class="col-sm-2">
+            Sukupuoli
+        </dt>
+        <dd class="col-sm-10">
+            @item.poikanen_skp
+        </dd>
+        <dt class="col-sm-2">
+            Lisätietoja
+        </dt>
+        <dd class="col-sm-10">
+            @item.poikanen_tietoja
+        </dd>
+        <dt class="col-sm-2">
+            Ostajan nimi
+        </dt>
+        <dd class="col-sm-10">
+           @item.ostaja_nimi
+        </dd>
+
+        @* @Html.ActionLink("Poista tietokannasta", "PoistaPoikanen", new { id = item.PoikanenId }) |*@
+        @*@Html.ActionLink("Muokkaa tietoja", "MuokkaaPoikasta", new { id = item.PoikanenId }) |*@
+        @*@Html.ActionLink("Lisää omiin kaneihin", "UusiKani", new { id = item.PoikanenId })*@
+
+    </dl>
+    <a asp-action="PoistaPoikanen" asp-route-id="@item.poikanen.PoikanenId" class="btn btn-secondary btn-sm">Poista</a>
+    <a asp-action="MuokkaaPoikasta" asp-route-id="@item.poikanen.PoikanenId" class="btn btn-secondary btn-sm">Muokkaa</a>
+    if(item.poikanen.KaniId != null)
+    {
+    <a asp-action="Details" asp-route-id="@item.poikanen.KaniId" class="btn btn-secondary btn-sm">Näytä tiedot</a>
+    }
+    else
+    {
+    <a asp-action="UusiKani" asp-route-id="@item.poikanen.PoikanenId" class="btn btn-secondary btn-sm">Lisää omiin kaneihin</a>
+    }
+     if(item.poikanen.OstajaId == null)
+    {
+    <a asp-action="UusiOstaja" asp-route-id="@item.poikanen.PoikanenId" class="btn btn-secondary btn-sm">Lisää ostajan tiedot</a>
+    }
+
+    }
+</div>
+
+
+
+<div>
+    @Html.ActionLink("Poista", "PoistaPoikue", new { id = Model.PoikueId }) |
+    @Html.ActionLink("Muokkaa", "MuokkaaPoikuetta", new { id = Model.PoikueId }) |
+
+    <a asp-action="Poikueet">Näytä kaikki poikueet</a>
+</div>

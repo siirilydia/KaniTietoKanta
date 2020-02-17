@@ -1,0 +1,131 @@
+﻿@model IEnumerable<KaniTietoKantaMVC.Models.Kani>
+
+@{
+    ViewData["Title"] = "Rokotukset";
+}
+
+<h1 class="display-4">Rokotukset</h1>
+
+
+@if (ViewBag.Voimassa != null)
+{
+    <dl class="row">
+        <dt class="col-sm-2">
+            Rokotettu
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Nimi
+                        </th>
+                        <th>
+                            Rokotettu
+                        </th>
+                        <th>
+                            Syntymäpäivä
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in ViewBag.Voimassa)
+                    {
+                        <tr onclick="location.href = '@(Url.Action("Details", "KaniDB", new { id = item.KaniId }))'">
+                            <td>
+                                @item.Nimi "@item.Kutsumanimi"
+                            </td>
+                            <td>
+                                @item.Rokotuspv.ToShortDateString()
+                            </td>
+                            <td>
+                                @item.Syntymäpäivä.ToShortDateString()
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </dd>
+    </dl>
+}
+@if (ViewBag.Vanhentuneet != null)
+{
+    <dl class="row">
+        <dt class="col-sm-2">
+            Vanhentuneet rokotukset
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Nimi
+                        </th>
+                        <th>
+                            Rokotettu
+                        </th>
+                        <th>
+                            Syntymäpäivä
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Vanhentuneet)
+                    {
+                        <tr onclick="location.href = '@(Url.Action("Details", "KaniDB", new { id = item.KaniId }))'">
+                            <td>
+                                @item.Nimi "@item.Kutsumanimi"
+                            </td>
+                            <td>
+                                @item.Rokotuspv.ToShortDateString()
+                            </td>
+                            <td>
+                                @item.Syntymäpäivä.ToShortDateString()
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </dd>
+
+    </dl>
+}
+@if (ViewBag.EiRokotettu != null)
+{
+    <dl class="row">
+        <dt class="col-sm-2">
+            Ei rokotettu
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Nimi
+                        </th>
+                        <th>
+                            Syntymäpäivä
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.EiRokotettu)
+                    {
+                        <tr onclick="location.href = '@(Url.Action("Details", "KaniDB", new { id = item.KaniId }))'">
+                            <td>
+                                @item.Nimi "@item.Kutsumanimi"
+                            </td>
+                            <td>
+                                @item.Syntymäpäivä.ToShortDateString()
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </dd>
+    </dl>
+}

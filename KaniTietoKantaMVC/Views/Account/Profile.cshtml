@@ -1,0 +1,15 @@
+﻿@model KaniTietoKantaMVC.ViewModels.UserProfileViewModel
+@{
+    ViewData["Title"] = "Profiili";
+}
+
+<div class="row">
+    <h1 class="display-4">Profiili</h1>
+</div>
+<br />
+<b>Sähköpostiosoite:</b>
+<p>
+    <i class="glyphicon glyphicon-envelope"></i> @Model.EmailAddress
+</p>
+<br />
+<a>Sähköpostiosoitettasi ei jaeta ulkopuolisille tahoille.</a>

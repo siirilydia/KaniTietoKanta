@@ -1,0 +1,110 @@
+﻿@model IEnumerable<KaniTietoKantaMVC.Models.Astutukset>
+
+@{
+    ViewData["Title"] = "Astutukset";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h1 class="display-4">Astutukset</h1>
+        </div>
+        <div class="col-md-3">
+            <p>
+                <a asp-action="UusiAstutus" class="btn btn-secondary btn-lg">Lisää uusi</a>
+            </p>
+        </div>
+    </div>
+</div>
+<br />
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Astutuspäivä)
+            </th>
+            <th>
+                Isä
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.IsäSyntymäpv)
+                </th>*@
+            <th scope="col" class="d-none d-lg-table-cell">
+                Isän väri
+            </th>
+            <th scope="col" class="d-none d-md-table-cell">
+                Isän rotu
+            </th>
+            <th>
+                Emä
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.EmäSyntymäpv)
+                </th>*@
+            <th scope="col" class="d-none d-lg-table-cell">
+               Emän väri
+            </th>
+            <th scope="col" class="d-none d-md-table-cell">
+                Emän rotu
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr onclick="location.href = '@(Url.Action("Astutuksentiedot", "KaniDB", new { id = item.AstutusId }))'">
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.AstutusId)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Astutuspäivä, "{0:dd.MM.yyyy}")
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.IsäId)
+                    </td>*@
+                <td>
+                    @if (item.IsäVnimi != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.IsäVnimi)
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.IsäKnimi)
+                    }
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.IsäSyntymäpv)
+                    </td>*@
+                <td scope="col" class="d-none d-lg-table-cell">
+                    @Html.DisplayFor(modelItem => item.IsäVäri)
+                </td>
+                <td scope="col" class="d-none d-md-table-cell">
+                    @Html.DisplayFor(modelItem => item.IsäRotu)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.EmäId)
+                    </td>*@
+            <td>
+                @if (item.EmäVnimi != null)
+                {
+                    @Html.DisplayFor(modelItem => item.EmäVnimi)
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.EmäKnimi)
+                }
+            </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.EmäSyntymäpv)
+                    </td>*@
+                <td scope="col" class="d-none d-lg-table-cell">
+                    @Html.DisplayFor(modelItem => item.EmäVäri)
+                </td>
+                <td scope="col" class="d-none d-md-table-cell">
+                    @Html.DisplayFor(modelItem => item.EmäRotu)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

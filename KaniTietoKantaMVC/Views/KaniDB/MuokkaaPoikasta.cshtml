@@ -1,0 +1,73 @@
+﻿@model KaniTietoKantaMVC.Models.Poikastiedot
+
+@{
+    ViewData["Title"] = "MuokkaaPoikasta";
+}
+@*<div>
+    @Html.ActionLink("Takaisin poikueen tietoihin", "Poikuetiedot", new { id = Model.PoikueId })
+</div>*@
+<a asp-action="Poikuetiedot" asp-route-id="@Model.PoikueId" class="btn btn-secondary btn-sm">Takaisin poikueen tietoihin</a>
+<br />
+<br />
+<h1 class="display-4">Muokkaa poikasen tietoja</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="MuokkaaPoikasta">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="PoikanenId" class="form-control" />
+                <span asp-validation-for="PoikanenId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="PoikueId" class="form-control" />
+                <span asp-validation-for="PoikueId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="KaniId" class="form-control" />
+                <span asp-validation-for="KaniId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nimi" class="control-label"></label>
+                <input asp-for="Nimi" class="form-control" />
+                <span asp-validation-for="Nimi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Syntymäpv" class="form-control" readonly />
+                <span asp-validation-for="Syntymäpv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Väri" class="control-label"></label>
+                <input asp-for="Väri" class="form-control" />
+                <span asp-validation-for="Väri" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sukupuoli" class="control-label"></label>
+                <select asp-for="Sukupuoli" name="Sukupuoli">
+                    <option value=uros>uros</option>
+                    <option value=naaras>naaras</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tietoja" class="control-label"></label>
+                <input asp-for="Tietoja" class="form-control" />
+                <span asp-validation-for="Tietoja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="OstajaId" class="form-control" />
+                <span asp-validation-for="OstajaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Tallenna" class="btn btn-secondary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

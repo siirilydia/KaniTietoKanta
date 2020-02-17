@@ -1,0 +1,156 @@
+﻿@model KaniTietoKantaMVC.Models.Astutukset
+
+@{
+    ViewData["Title"] = "UusiAstutus";
+}
+
+<script>
+    $(document).ready(function () {
+
+        if ($('.isävalinta').val() != 0) {
+            $('.isäntiedot').css("display", "none");
+        }
+        if ($('.emovalinta').val() != 0) {
+            $('.emontiedot').css("display", "none");
+        }
+
+        //when the select changes:
+        $('.emovalinta').on("change", function () {
+            if ($(this).val() != 0) { // or this.value == 'volvo'
+                $('.emontiedot').css("display", "none"),
+                    $('.emäinput').val("valittu");
+            }
+            else {
+                $('.emontiedot').css("display", "inline"),
+                    $('.emäinput').val(null);
+            }
+        });
+
+        $('.isävalinta').on("change", function () {
+            if ($(this).val() != 0) { // or this.value == 'volvo'
+                $('.isäntiedot').css("display", "none"),
+                    $('.isäinput').val("valittu");
+            }
+            else {
+                $('.isäntiedot').css("display", "inline"),
+                    $('.isäinput').val(null);
+            }
+        });
+
+    });
+</script>
+
+<h1 class="display-4">Uuden astutuksen tiedot</h1>
+
+@*<h4>Astutukset</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UusiAstutus">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                    <label asp-for="AstutusId" class="control-label"></label>
+                    <input  asp-for="AstutusId" class="form-control" />
+                    <span asp-validation-for="AstutusId" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="Astutuspäivä" class="control-label"></label>
+                <input asp-for="Astutuspäivä" class="form-control" />
+                <span asp-validation-for="Astutuspäivä" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EmäId" class="control-label">Emä</label>
+                <select asp-for="EmäId" class="form-control emovalinta">
+                    <option value="0">Ei tietokannassa</option>
+                    @foreach (var item in ViewBag.Naaraat)
+                    {
+                    <option id="emoid" value=@item.KaniId>@item.Nimi "@item.Kutsumanimi"</option>
+                    }
+                </select>
+                <small id="emailHelp" class="form-text text-muted">Jos valitset tästä tietokannassasi olevan emän, ei muita tietoja emälle tarvitse syöttää.</small>
+                <span asp-validation-for="EmäId" class="text-danger"></span>
+            </div>
+            <div class="form-group emontiedot">
+                <label asp-for="EmäKnimi" class="control-label">Emän kutsumanimi</label>
+                <input asp-for="EmäKnimi" class="form-control emäinput" />
+                <span asp-validation-for="EmäKnimi" class="text-danger"></span>
+            </div>
+            <div class="form-group emontiedot">
+                <label asp-for="EmäVnimi" class="control-label">Emän virallinen nimi</label>
+                <input asp-for="EmäVnimi" class="form-control" />
+                <span asp-validation-for="EmäVnimi" class="text-danger"></span>
+            </div>
+            <div class="form-group emontiedot">
+                <label asp-for="EmäSyntymäpv" class="control-label">Emän syntymäpäivä</label>
+                <input asp-for="EmäSyntymäpv" class="form-control" />
+                <span asp-validation-for="EmäSyntymäpv" class="text-danger"></span>
+            </div>
+            <div class="form-group emontiedot">
+                <label asp-for="EmäVäri" class="control-label">Emän väri</label>
+                <input asp-for="EmäVäri" class="form-control" />
+                <span asp-validation-for="EmäVäri" class="text-danger"></span>
+            </div>
+            <div class="form-group emontiedot">
+                <label asp-for="EmäRotu" class="control-label">Emän rotu</label>
+                <input asp-for="EmäRotu" class="form-control emäinput" />
+                <span asp-validation-for="EmäRotu" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IsäId" class="control-label">Isä</label>
+                <select asp-for="IsäId" class="form-control isävalinta">
+                    <option value=0>Ei tietokannassa</option>
+                    @foreach (var item in ViewBag.Urokset)
+                    {
+                    <option value=@item.KaniId>@item.Nimi "@item.Kutsumanimi"</option>
+                    }
+                </select>
+                <small id="emailHelp" class="form-text text-muted">Jos valitset tästä tietokannassasi olevan isän, ei muita tietoja isälle tarvitse syöttää.</small>
+                <span asp-validation-for="IsäId" class="text-danger"></span>
+            </div>
+            <div class="form-group isäntiedot">
+                <label asp-for="IsäKnimi" class="control-label">Isän kutsumanimi</label>
+                <input asp-for="IsäKnimi" class="form-control isäinput" />
+                <span asp-validation-for="IsäKnimi" class="text-danger"></span>
+            </div>
+            <div class="form-group isäntiedot">
+                <label asp-for="IsäVnimi" class="control-label">Isän virallinen nimi</label>
+                <input asp-for="IsäVnimi" class="form-control" />
+                <span asp-validation-for="IsäVnimi" class="text-danger"></span>
+            </div>
+            <div class="form-group isäntiedot">
+                <label asp-for="IsäSyntymäpv" class="control-label">Isän syntymäpäivä</label>
+                <input asp-for="IsäSyntymäpv" class="form-control" />
+                <span asp-validation-for="IsäSyntymäpv" class="text-danger"></span>
+            </div>
+            <div class="form-group isäntiedot">
+                <label asp-for="IsäVäri" class="control-label">Isän väri</label>
+                <input asp-for="IsäVäri" class="form-control" />
+                <span asp-validation-for="IsäVäri" class="text-danger"></span>
+            </div>
+            <div class="form-group isäntiedot">
+                <label asp-for="IsäRotu" class="control-label">Isän rotu</label>
+                <input asp-for="IsäRotu" class="form-control isäinput" />
+                <span asp-validation-for="IsäRotu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lisätietoja" class="control-label"></label>
+                <input asp-for="Lisätietoja" class="form-control" />
+                <span asp-validation-for="Lisätietoja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Email" class="form-control" value="@ViewBag.Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Tallenna" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+        <a asp-action="Astutukset">Näytä kaikki astutukset</a>
+    </div>
+
